@@ -18,7 +18,6 @@ function App() {
           method: "GET",
           mode: "cors",
           headers: {
-            Authorization: "token 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",
             "Content-Type": "application/json",
           },
         }
@@ -58,7 +57,6 @@ function App() {
           method: "GET",
           mode: "cors",
           headers: {
-            Authorization: "token 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",
             "Content-Type": "application/json",
           },
         }
@@ -79,7 +77,6 @@ function App() {
           method: "GET",
           mode: "cors",
           headers: {
-            Authorization: "token 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",
             "Content-Type": "application/json",
           },
         }
