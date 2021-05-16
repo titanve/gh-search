@@ -18,16 +18,17 @@ function App() {
           method: "GET",
           mode: "cors",
           headers: {
-            'Authorization': 'token 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',
+            Authorization: "token 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",
             "Content-Type": "application/json",
           },
         }
       );
       const res = await response.json();
+      console.log("res", res);
       setResults(res.items);
-      setTotalCount(res.total_count);
     } catch (e) {
       console.error("ghSearch", e);
+      setAppState("idle");
     }
   };
 
@@ -37,7 +38,7 @@ function App() {
         method: "GET",
         mode: "cors",
         headers: {
-          'Authorization': 'token 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',
+          Authorization: "token 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",
           "Content-Type": "application/json",
         },
       });
@@ -45,6 +46,53 @@ function App() {
       return res;
     } catch (e) {
       console.error("ghUserSearch", e);
+      setAppState("idle");
+    }
+  };
+
+  const ghUserStarred = async (user) => {
+    try {
+      const response = await fetch(
+        `https://api.github.com/users/${user}/starred`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Authorization: "token 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",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const res = await response.json();
+      return res.length;
+    } catch (e) {
+      console.error("ghUserSearch", e);
+      setAppState("idle");
+    }
+  };
+
+  const ghUserStars = async (user) => {
+    try {
+      const response = await fetch(
+        `https://api.github.com/users/${user}/repos`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Authorization: "token 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",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const res = await response.json();
+      let newstars = 0;
+      res.forEach((repo) => {
+        newstars += repo.stargazers_count;
+      });
+      return newstars;
+    } catch (e) {
+      console.error("ghUserSearch", e);
+      setAppState("idle");
     }
   };
 
@@ -53,6 +101,7 @@ function App() {
   React.useEffect(() => {
     timerIdRef.current = setTimeout(() => {
       if (hasContent(search)) {
+        setAppState("loading");
         ghSearch();
       }
     }, 800); // 800 ms
@@ -62,16 +111,25 @@ function App() {
     };
   }, [search]);
 
+  const processUserData = async () => {
+    let newarr = [];
+    for (let i = 0; i < results.length; i++) {
+      const element = results[i];
+      const starred = await ghUserStarred(element.login);
+      const stars = await ghUserStars(element.login);
+      const newuserdata = await ghUserSearch(element.login);
+      newarr.push({ ...newuserdata, starred, stars });
+    }
+    console.log("newarr", newarr);
+    setUsersData(newarr);
+    setAppState("idle");
+  };
+
   React.useEffect(() => {
     // console.log("results", results);
     if (hasContent(results)) {
-      const newuserdata = results.map((user) => {
-        return ghUserSearch(user.login);
-      });
-      console.log("newuserdata", newuserdata);
-      Promise.all([...newuserdata]).then(ans=>{
-        console.log("ans",ans)
-      }).catch(err=>console.error(err))
+      setTotalCount(results.length);
+      processUserData();
     }
   }, [results]);
 
@@ -79,9 +137,18 @@ function App() {
     <div className="App">
       <header className="App-header">
         <span>GitHub Search</span>
-        <div className="App-search-box">
-          <input value={search} onChange={(e) => setSearch(e.target.value)} />
-          <Users users={results} />
+        <div className="App-search-block">
+          <input
+            className="App-input-search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <span className="App-total-count">Total count: {totalCount}</span>
+          {appState === "idle" ? (
+            <Users users={usersData} />
+          ) : appState === "loading" ? (
+            <span className="App-appstate-loading">Loading ...</span>
+          ) : null}
         </div>
       </header>
     </div>

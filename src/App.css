@@ -28,6 +28,29 @@
   color: #61dafb;
 }
 
+.App-search-block {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  width: 95%;
+}
+
+.App-input-search {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  height: 2rem;
+  width: 25rem;
+}
+
+.App-total-count {
+  margin-top: 1rem;
+}
+
+.App-appstate-loading {
+  margin-top: 2rem;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

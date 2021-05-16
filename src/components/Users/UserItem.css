@@ -1,0 +1,48 @@
+.UserItem-item-container {
+  margin-top: 5rem;
+}
+
+.UserItem-info-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+.UserItem-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.UserItem-avatar {
+  margin-left: 5rem;
+}
+
+.UserItem-img-responsive {
+  border-radius: 1rem;
+  border-width: 0.2rem;
+  border-style: solid;
+  border-color: #719df7;
+  width: 100%;
+  height: auto;
+}
+
+.UserItem-link {
+  margin-left: 1rem;
+}
+
+a:link,
+a:visited {
+  border-radius: 0.8rem;
+  background-color: #326bdf;
+  color: white;
+  padding: 7px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover,
+a:active {
+  background-color: #5888e7;
+}
