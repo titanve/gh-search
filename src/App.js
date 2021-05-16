@@ -18,7 +18,7 @@ function App() {
           method: "GET",
           mode: "cors",
           headers: {
-            Authorization: "token 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",
+            Authorization: "token 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",
             "Content-Type": "application/json",
           },
         }
@@ -38,7 +38,7 @@ function App() {
         method: "GET",
         mode: "cors",
         headers: {
-          Authorization: "token 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",
+          Authorization: "token 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",
           "Content-Type": "application/json",
         },
       });
@@ -58,7 +58,7 @@ function App() {
           method: "GET",
           mode: "cors",
           headers: {
-            Authorization: "token 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",
+            Authorization: "token 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",
             "Content-Type": "application/json",
           },
         }
@@ -79,7 +79,7 @@ function App() {
           method: "GET",
           mode: "cors",
           headers: {
-            Authorization: "token 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",
+            Authorization: "token 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",
             "Content-Type": "application/json",
           },
         }
